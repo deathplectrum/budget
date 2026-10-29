@@ -4,9 +4,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Бюджет">
-<meta name="theme-color" content="#373737">
+<meta name="theme-color" content="#F3F3F3">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-512.png">
@@ -15,27 +15,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-/* Layout: one-column phone app, graphite hero on top, sheet modals from the bottom, tab bar fixed to the bottom edge. */
+/* Layout: one-column phone app, white hero on top, sheet modals from the bottom, tab bar fixed to the bottom edge. */
+/* Single light theme on purpose: the user asked for a grey-and-white look, the same in any system mode. */
 :root{
   --deep:#373737;--ocean:#555555;--wave:#818181;--silver:#A1A1A1;--foam:#C0C0C0;
-  --bg:#EDEDED;--card:#FFFFFF;--card2:#F5F5F5;--fg:#262626;--muted:#6B6B6B;--line:#DCDCDC;
-  --accent:#373737;--accent-fg:#FFFFFF;--chip:#E3E3E3;--chip-on:#373737;--chip-on-fg:#FFFFFF;
-  --hero1:#373737;--hero2:#555555;--hero-fg:#F5F5F5;--hero-muted:#C0C0C0;
-  --good:#3E8E5E;--bad:#C0473F;--warn:#9A7322;--scrim:rgba(0,0,0,.4);
-  --shadow:0 10px 30px -12px rgba(0,0,0,.35);
+  --bg:#F3F3F3;--card:#FFFFFF;--card2:#F7F7F7;--fg:#262626;--muted:#6E6E6E;--line:#E6E6E6;
+  --accent:#373737;--accent-fg:#FFFFFF;--chip:#EBEBEB;--chip-on:#373737;--chip-on-fg:#FFFFFF;
+  --hero1:#FFFFFF;--hero2:#F7F7F7;--hero-fg:#262626;--hero-muted:#818181;--hero-tile:#F3F3F3;
+  --good:#3E8E5E;--bad:#C0473F;--warn:#9A7322;--scrim:rgba(0,0,0,.28);
+  --shadow:0 8px 28px -14px rgba(0,0,0,.22);
   --display:"Unbounded","Manrope",-apple-system,system-ui,sans-serif;
   --body:"Manrope",-apple-system,system-ui,sans-serif;
+  color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#1C1C1C;--card:#2C2C2C;--card2:#373737;--fg:#EDEDED;--muted:#A1A1A1;--line:#404040;
-  --accent:#C0C0C0;--accent-fg:#1C1C1C;--chip:#373737;--chip-on:#C0C0C0;--chip-on-fg:#1C1C1C;
-  --hero1:#373737;--hero2:#555555;--hero-fg:#F5F5F5;--hero-muted:#C0C0C0;
-  --good:#7CC79A;--bad:#F08A80;--warn:#E5B45C;--scrim:rgba(0,0,0,.6);--shadow:0 10px 30px -12px rgba(0,0,0,.7);color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#1C1C1C;--card:#2C2C2C;--card2:#373737;--fg:#EDEDED;--muted:#A1A1A1;--line:#404040;
-  --accent:#C0C0C0;--accent-fg:#1C1C1C;--chip:#373737;--chip-on:#C0C0C0;--chip-on-fg:#1C1C1C;
-  --hero1:#373737;--hero2:#555555;--hero-fg:#F5F5F5;--hero-muted:#C0C0C0;
-  --good:#7CC79A;--bad:#F08A80;--warn:#E5B45C;--scrim:rgba(0,0,0,.6);--shadow:0 10px 30px -12px rgba(0,0,0,.7);color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg)}
 body{color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.4;
@@ -54,21 +46,21 @@ input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(
 .link{color:var(--accent);font-weight:700;font-size:14px;padding:4px 2px}
 
 /* hero */
-.hero{position:relative;overflow:hidden;border-radius:28px;padding:22px 20px 18px;color:var(--hero-fg);
+.hero{position:relative;overflow:hidden;border-radius:28px;border:1px solid var(--line);padding:22px 20px 18px;color:var(--hero-fg);
   background:linear-gradient(150deg,var(--hero1) 0%,var(--hero2) 100%);box-shadow:var(--shadow)}
-.hero .gear{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:14px;background:rgba(192,192,192,.14);display:grid;place-items:center;z-index:2}
+.hero .gear{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:14px;background:var(--hero-tile);display:grid;place-items:center;z-index:2}
 .hero .gear svg{width:22px;height:22px;stroke:var(--hero-fg);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.hero canvas{position:absolute;inset:auto 0 0 0;width:100%;height:70px;opacity:.55;pointer-events:none}
+.hero canvas{position:absolute;inset:auto 0 0 0;width:100%;height:70px;opacity:1;pointer-events:none}
 .hero>*:not(canvas){position:relative}
 .hero .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--hero-muted);font-weight:700}
 .hero .big{font-family:var(--display);font-size:clamp(40px,13vw,56px);font-weight:700;line-height:1.05;margin:6px 0 2px}
 .hero .sub{color:var(--hero-muted);font-size:14px}
 .hero .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
-.hero .stat{background:rgba(192,192,192,.12);border-radius:14px;padding:10px 10px 9px;min-width:0}
+.hero .stat{background:var(--hero-tile);border-radius:14px;padding:10px 10px 9px;min-width:0}
 .hero .stat b{display:block;font-size:16px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hero .stat span{font-size:11.5px;color:var(--hero-muted);white-space:nowrap}
-.pbar{height:6px;border-radius:6px;background:rgba(192,192,192,.18);margin-top:14px;overflow:hidden}
-.pbar i{display:block;height:100%;border-radius:6px;background:var(--foam);width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.pbar{height:6px;border-radius:6px;background:var(--line);margin-top:14px;overflow:hidden}
+.pbar i{display:block;height:100%;border-radius:6px;background:var(--ocean);width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
 .hero .pfoot{display:flex;justify-content:space-between;font-size:11.5px;color:var(--hero-muted);margin-top:6px}
 
 /* quick line */
@@ -457,7 +449,7 @@ function renderHome(){
   $('hPeriod').textContent='Период '+dShort(c.p.start)+' — '+dShort(c.p.end);
   if(loaded()){countTo($('hPerDay'),c.perDay);
     $('hSub').textContent=c.spentToday?('можно тратить сегодня · уже потратил '+fmt(c.spentToday)):'можно тратить сегодня';
-    $('hCash').textContent=fmtS(c.cash);$('hCash').style.color=c.cash<0?'#FFB4AC':'';
+    $('hCash').textContent=fmtS(c.cash);$('hCash').style.color=c.cash<0?'var(--bad)':'';
     $('hDays').textContent=c.daysLeft+' '+plural(c.daysLeft,'день','дня','дней');
     $('hRes').textContent=fmt(c.reserved);
   }
@@ -728,13 +720,13 @@ document.querySelectorAll('[data-s]').forEach(b=>b.type='button');
 // ---------- волна в шапке ----------
 (function(){const c=$('waves'),x=c.getContext('2d');let w,h,t=0;const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
   function size(){const r=c.getBoundingClientRect(),d=devicePixelRatio||1;w=r.width;h=r.height;c.width=w*d;c.height=h*d;x.setTransform(d,0,0,d,0,0)}
-  function draw(){x.clearRect(0,0,w,h);[[.18,'rgba(161,161,161,.5)',1],[.11,'rgba(192,192,192,.35)',1.6]].forEach(([amp,col,sp],k)=>{
+  function draw(){x.clearRect(0,0,w,h);[[.18,'rgba(0,0,0,.035)',1],[.11,'rgba(0,0,0,.05)',1.6]].forEach(([amp,col,sp],k)=>{
     x.beginPath();x.moveTo(0,h);for(let i=0;i<=w;i+=4){x.lineTo(i,h*.45+Math.sin(i/(48+k*20)+t*sp)*h*amp+k*10)}x.lineTo(w,h);x.closePath();x.fillStyle=col;x.fill()});
     t+=.025;if(!still)requestAnimationFrame(draw)}
   size();addEventListener('resize',size);draw();})();
 
 // ---------- хранилище в телефоне ----------
-const APP_VERSION='29.10 17:41';
+const APP_VERSION='29.10 17:45';
 const LS_KEY='budget-v1';
 const LocalDB=(()=>{
   let store={};try{store=JSON.parse(localStorage.getItem(LS_KEY)||'{}')||{}}catch(e){store={}}
