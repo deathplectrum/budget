@@ -292,29 +292,61 @@ input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(
 
 <script>
 // ---------- справочники ----------
-const EXP=[
- ['Продукты','🛒',['магнит','пятероч','дикси','перек','вкусвил','лавка','евроспар','ашан','лента','продукт','светофор','fix price','фикс прайс']],
- ['Кафе и еда вне дома','☕',['шаурм','шавух','столов','кофе','кофик','ростикс','kfc','вкусно и точка','бургер','доминос','пицц','яндекс еда','еда','привоз','обед','булочк','пончик','энергетик','сникерс','кафе','суши','роллы']],
- ['Транспорт','🚇',['метро','автобус','такси','проезд','электричк','тройка','самокат','бензин']],
- ['Связь и подписки','📱',['телефон','связь','интернет','впн','vpn','подписк','яндекс плюс','луна','пасс','spotify']],
- ['Здоровье и зубы','🦷',['стомат','зуб','аптек','врач','лекарств','гигиен','анализ']],
- ['Личные покупки','🛍',['одежд','шорты','штаны','лонгслив','футболк','кроссовк','испарик','жиж','вейп','маникюр','стрижк','wildberries','вб','озон','ozon']],
- ['Развлечения и игры','🎮',['геншин','донат','игр','кино','стим','steam','боулинг','концерт','клуб']],
- ['Девушка','💐',['девушк','свидани','цвет']],
- ['Подарки','🎁',['подар','день рожд','др ']],
- ['Долги (выплата)','🧾',[]],
- ['Прочие расходы','📦',[]],
+// [название, иконка, слова для быстрой строки, включена по умолчанию, нельзя выключить]
+const EXP_ALL=[
+ ['Продукты','🛒',['магнит','пятероч','дикси','перек','вкусвил','лавка','евроспар','ашан','лента','продукт','светофор','fix price','фикс прайс','окей','metro'],1],
+ ['Кафе и еда вне дома','☕',['шаурм','шавух','столов','кофе','кофик','ростикс','kfc','вкусно и точка','бургер','доминос','пицц','яндекс еда','еда','привоз','обед','булочк','пончик','энергетик','сникерс','кафе','суши','роллы','ресторан','бар '],1],
+ ['Жильё и аренда','🏠',['аренд','квартир','съём','съем','ипотек','общаг'],0],
+ ['Коммунальные услуги','💡',['жкх','коммунал','квартплат','электричеств','газ','вода'],0],
+ ['Такси','🚕',['такси','uber','убер'],0],
+ ['Транспорт','🚇',['метро','автобус','такси','проезд','электричк','тройка','самокат','трамва','поезд','ржд'],1],
+ ['Автомобиль','🚗',['бензин','заправк','азс','парковк','мойк','шиномонтаж','автомобил','машин','осаго','каско'],0],
+ ['Связь и подписки','📱',['телефон','связь','интернет','впн','vpn','подписк','яндекс плюс','луна','пасс','spotify'],1],
+ ['Здоровье и зубы','🦷',['стомат','зуб','аптек','врач','лекарств','гигиен','анализ','клиник','больниц'],1],
+ ['Спорт и фитнес','🏋️',['спортзал','фитнес','бассейн','тренажер','тренажёр','тренировк','спорт','абонемент'],0],
+ ['Красота и уход','💇',['маникюр','стрижк','барбер','парикмахер','косметик','шампун','крем'],0],
+ ['Одежда и обувь','👟',['одежд','шорты','штаны','джинс','лонгслив','футболк','худи','куртк','кроссовк','ботинк','обув','носк'],0],
+ ['Техника и электроника','💻',['наушник','телефон новый','ноутбук','зарядк','кабел','техник','электроник','dns','м.видео','мвидео'],0],
+ ['Дом и быт','🧺',['бытов','посуд','порошок','моющ','хозтовар','леруа','икеа','ikea','мебел','ремонт'],0],
+ ['Образование и курсы','📚',['курс','учёб','учеб','книг','репетитор','универ','колледж','экзамен'],0],
+ ['Дети','🧸',['игрушк','детск','садик','школ'],0],
+ ['Домашние животные','🐾',['корм','ветеринар','ветклиник','зоомагаз','кошк','собак'],0],
+ ['Путешествия и отпуск','✈️',['билет','отель','гостиниц','хостел','отпуск','путешеств','авиа'],0],
+ ['Развлечения и игры','🎮',['геншин','донат','игр','кино','стим','steam','боулинг','концерт','клуб','театр','музей'],1],
+ ['Вейп и сигареты','💨',['вейп','испарик','жиж','сигарет','табак','кальян'],0],
+ ['Личные покупки','🛍',['одежд','шорты','штаны','лонгслив','футболк','кроссовк','испарик','жиж','вейп','маникюр','стрижк','wildberries','вб','озон','ozon'],1],
+ ['Девушка','💐',['девушк','свидани','цвет'],1],
+ ['Подарки','🎁',['подар','день рожд','др '],1],
+ ['Благотворительность','🤲',['благотвор','донор','пожертв','фонд'],0],
+ ['Налоги и штрафы','🏛',['налог','штраф','пошлин','госуслуг'],0],
+ ['Страховка','🛡',['страхов'],0],
+ ['Комиссии банка','💳',['комисси','обслуживание карт'],0],
+ ['Долги (выплата)','🧾',[],1,1],
+ ['Прочие расходы','📦',[],1,1],
 ];
-const INC=[
- ['Подработка','💼',['зарплат','зп','аванс','подработ']],
- ['Стипендия','🎓',['стипенд']],
- ['Уборка дома','🧹',['уборк']],
- ['Займ (получил)','🤝',['занял','в долг']],
- ['Прочие доходы','💰',[]],
+const INC_ALL=[
+ ['Зарплата','💳',['зарплат','зп','аванс','оклад'],0],
+ ['Подработка','💼',['зарплат','зп','аванс','подработ'],1],
+ ['Фриланс','🧑‍💻',['фриланс','заказ','проект'],0],
+ ['Премия и бонусы','🏆',['преми','бонус'],0],
+ ['Стипендия','🎓',['стипенд'],1],
+ ['Уборка дома','🧹',['уборк'],1],
+ ['Кэшбэк','🎯',['кэшб','кешб','cashback'],0],
+ ['Проценты по вкладу','🏦',['процент','вклад','накопительн'],0],
+ ['Подарки (получил)','🎁',['подарил','подарок от','подарили'],0],
+ ['Продажа вещей','🏷',['продал','авито','avito','юла'],0],
+ ['Пособия и выплаты','📄',['пособ','выплат','пенси','налоговый вычет','вычет'],0],
+ ['Вернули долг','🔁',['вернули','вернул долг'],0],
+ ['Займ (получил)','🤝',['занял','в долг'],1,1],
+ ['Прочие доходы','💰',[],1,1],
 ];
-const SHORT={'Кафе и еда вне дома':'Кафе','Связь и подписки':'Связь','Здоровье и зубы':'Здоровье','Личные покупки':'Покупки','Развлечения и игры':'Развлечения','Долги (выплата)':'Долги','Прочие расходы':'Прочее','Прочие доходы':'Другое','Займ (получил)':'Занял'};
-const ICON={};[...EXP,...INC].forEach(c=>ICON[c[0]]=c[1]);ICON['Накопления']='🐷';ICON['Корректировка']='⚖️';
-const INCOME_TRIGGER=/(^|\s)(зарплат|зп|аванс|подработ|стипенд|уборк|кэшб|кешб|получил|пришл|пришёл|пришел|занял|вернули|перевели)/;
+let EXP=EXP_ALL.slice(),INC=INC_ALL.slice();
+const catOn=c=>{if(c[4])return true;const o=((S&&S.settings)||{}).cats||{};return c[0] in o?!!o[c[0]]:!!c[3]};
+function applyCats(){EXP=EXP_ALL.filter(catOn);INC=INC_ALL.filter(catOn)}
+const SHORT={'Кафе и еда вне дома':'Кафе','Связь и подписки':'Связь','Здоровье и зубы':'Здоровье','Личные покупки':'Покупки','Развлечения и игры':'Развлечения','Долги (выплата)':'Долги','Прочие расходы':'Прочее','Прочие доходы':'Другое','Займ (получил)':'Занял',
+ 'Жильё и аренда':'Жильё','Коммунальные услуги':'Коммуналка','Спорт и фитнес':'Спорт','Красота и уход':'Красота','Одежда и обувь':'Одежда','Техника и электроника':'Техника','Образование и курсы':'Учёба','Домашние животные':'Питомцы','Путешествия и отпуск':'Путешествия','Вейп и сигареты':'Вейп','Благотворительность':'Добрые дела','Налоги и штрафы':'Налоги','Комиссии банка':'Комиссии','Премия и бонусы':'Премия','Проценты по вкладу':'Проценты','Подарки (получил)':'Подарки','Продажа вещей':'Продажа','Пособия и выплаты':'Выплаты'};
+const ICON={};[...EXP_ALL,...INC_ALL].forEach(c=>ICON[c[0]]=c[1]);ICON['Накопления']='🐷';ICON['Корректировка']='⚖️';
+const INCOME_TRIGGER=/(^|\s)(зарплат|зп|аванс|оклад|подработ|фриланс|преми|бонус|стипенд|уборк|кэшб|кешб|процент|вклад|продал|пособ|вычет|получил|пришл|пришёл|пришел|занял|вернули|перевели|подарили)/;
 const short=c=>SHORT[c]||c;
 
 // ---------- утилиты ----------
@@ -419,7 +451,7 @@ const sorted=()=>S.tx.slice().sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(b.ts
 function loaded(){return S.ready.tx&&S.ready.settings}
 
 function renderHome(){
-  const c=calc(),st=set_();
+  const c=calc(),st=set_();renderChips();
   $('hPeriod').textContent='Период '+dShort(c.p.start)+' — '+dShort(c.p.end);
   if(loaded()){countTo($('hPerDay'),c.perDay);
     $('hSub').textContent=c.spentToday?('можно тратить сегодня · уже потратил '+fmt(c.spentToday)):'можно тратить сегодня';
@@ -483,11 +515,12 @@ function renderPlan(){
     return `<div class="prow"><div class="l1"><span>${ICON[name]||'🐷'}</span><span class="nm">${esc(name==='Накопления'?'Отложить в цели':short(name))}${mand?'<span class="tag">обяз.</span>':''}</span>
     <input class="num" inputmode="numeric" data-plan="${esc(name)}" value="${pl||''}" placeholder="0" aria-label="План: ${esc(name)}"></div>
     ${pl||f?`<div class="bar ${over?'over':''}"><i data-w="${pct}"></i></div><div class="l2 num"><span>факт ${fmt(f)}</span><span style="${over?'color:var(--bad);font-weight:700':''}">${pl?(isInc?(f>=pl?'всё пришло':'ждём '+fmt(pl-f)):(over?'перерасход '+fmt(f-pl):'осталось '+fmt(pl-f))):''}</span></div>`:''}</div>`};
-  const tInc=INC.reduce((a,c)=>a+num(plan[c[0]]),0),tExp=EXP.reduce((a,c)=>a+num(plan[c[0]]),0),tSv=num(plan['Накопления']);
+  const vis=c=>catOn(c)||num(plan[c[0]])||fact[c[0]];const PI=INC_ALL.filter(vis),PE=EXP_ALL.filter(vis);
+  const tInc=INC_ALL.reduce((a,c)=>a+num(plan[c[0]]),0),tExp=EXP_ALL.reduce((a,c)=>a+num(plan[c[0]]),0),tSv=num(plan['Накопления']);
   const prevKey=shiftPeriod(p.key,-1),hasPrev=Object.keys((st.plan||{})[prevKey]||{}).length;
   $('pBody').innerHTML=`<div class="sumrow"><div class="card"><b class="num amt in">${fmt(tInc)}</b><span>придёт</span></div><div class="card"><b class="num">${fmt(tExp+tSv)}</b><span>расписано</span></div><div class="card"><b class="num" style="color:${tInc-tExp-tSv<0?'var(--bad)':'var(--accent)'}">${fmtS(tInc-tExp-tSv)}</b><span>свободно</span></div></div>
-  <h2>Доходы</h2><div class="list">${INC.map(c=>row(c[0],true)).join('')}</div>
-  <h2>Расходы</h2><div class="list">${EXP.map(c=>row(c[0],false)).join('')}</div>
+  <h2>Доходы</h2><div class="list">${PI.map(c=>row(c[0],true)).join('')}</div>
+  <h2>Расходы</h2><div class="list">${PE.map(c=>row(c[0],false)).join('')}</div>
   <h2>Накопления</h2><div class="list">${row('Накопления',false)}</div>
   ${hasPrev?'<button class="btn ghost wide" id="pCopy" style="margin-top:16px">Скопировать план прошлого периода</button>':''}
   <p class="hint">Метка «обяз.» значит, что эти деньги заранее откладываются из суммы «в день». Менять в настройках.</p>`;
@@ -501,6 +534,10 @@ function renderMore(){
    <button class="btn wide" id="stSave" style="margin-top:12px">Сохранить</button></div>
   <h2>Сверка с банком</h2><div class="card"><p class="small muted" style="margin:0 0 10px">Сейчас по приложению на руках <b class="num" style="color:var(--fg)">${fmtS(calc().cash)}</b>. Если в банке другая сумма, впиши её. Разницу запишу одной строкой «Корректировка».</p>
    <div class="quick" style="margin:0"><input id="recAmt" inputmode="decimal" placeholder="Сколько на самом деле"><button class="btn" id="recBtn">Сверить</button></div></div>
+  <h2>Категории <span class="small muted" style="font-family:var(--body)">${EXP.length+INC.length} включено</span></h2>
+  <div class="seg" style="margin-bottom:10px"><button data-cseg="exp" class="${S.catSeg!=='inc'?'on':''}">Расходы</button><button data-cseg="inc" class="${S.catSeg==='inc'?'on':''}">Доходы</button></div>
+  <div class="card">${(S.catSeg==='inc'?INC_ALL:EXP_ALL).map(c=>`<div class="setrow"><span>${c[1]} ${esc(c[0])}${c[4]?'<div class="small muted">нужна всегда</div>':''}</span>${c[4]?'':`<button class="switch ${catOn(c)?'on':''}" data-catsw="${esc(c[0])}" role="switch" aria-checked="${catOn(c)}" aria-label="${esc(c[0])}"></button>`}</div>`).join('')}</div>
+  <p class="hint">Включённые категории появляются в «+», в плане и в быстрой строке.</p>
   <h2>Обязательные траты</h2><div class="card">${EXP.map(c=>`<div class="setrow"><span>${c[1]} ${esc(short(c[0]))}</span><button class="switch ${st.mandatory.includes(c[0])?'on':''}" data-mand="${esc(c[0])}" role="switch" aria-checked="${st.mandatory.includes(c[0])}" aria-label="${esc(c[0])}"></button></div>`).join('')}</div>
   <h2>Копия данных</h2><div class="card"><p class="small muted" style="margin:0 0 10px">Данные хранятся только в этом телефоне. Раз в неделю сохраняй копию в «Файлы», чтобы ничего не потерять.</p>
    <div class="acts2"><button class="btn wide" id="bkSave">Сохранить копию</button><button class="btn ghost wide" id="bkLoad">Загрузить копию</button></div>
@@ -509,7 +546,7 @@ function renderMore(){
    <button class="btn ghost wide" id="csv" style="margin-top:10px">Скопировать все записи как таблицу</button></div>`;
 }
 function renderAll(){
-  renderHome();
+  applyCats();renderHome();
   if(S.view==='history')renderHistory();if(S.view==='goals')renderGoals();if(S.view==='plan')renderPlan();if(S.view==='more')renderMore();
   requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.bar i[data-w]').forEach(i=>i.style.width=i.dataset.w+'%')));
 }
@@ -637,6 +674,9 @@ document.addEventListener('click',async e=>{
   if(b.id==='pPrev'||b.id==='pNext'){S.planKey=shiftPeriod(S.planKey,b.id==='pNext'?1:-1);return renderAll()}
   if(b.id==='pCopy'){const st=set_();const prev=(st.plan||{})[shiftPeriod(S.planKey,-1)]||{};
     try{await saveSettings({plan:{[S.planKey]:Object.assign({},prev)}});toast('План скопирован')}catch(err){toast(errMsg(err))}return}
+  if(b.dataset.cseg){S.catSeg=b.dataset.cseg;return renderMore()}
+  if(b.dataset.catsw){const c=[...EXP_ALL,...INC_ALL].find(x=>x[0]===b.dataset.catsw);const v=!catOn(c);b.classList.toggle('on',v);
+    try{await saveSettings({cats:{[c[0]]:v}});renderMore()}catch(err){toast(errMsg(err))}return}
   if(b.dataset.mand){const st=set_();const m=new Set(st.mandatory);m.has(b.dataset.mand)?m.delete(b.dataset.mand):m.add(b.dataset.mand);
     b.classList.toggle('on');try{await saveSettings({mandatory:[...m]})}catch(err){toast(errMsg(err))}return}
   if(b.id==='stSave'){const a=num($('pd1').value),c=num($('pd2').value);
@@ -665,8 +705,8 @@ $('qForm').onsubmit=async e=>{e.preventDefault();const v=$('qText').value.trim()
   $('qText').value='';$('qText').blur();
   const ref=await addTx(r);if(ref)toast('✓ '+title(r)+' '+fmt(r.amount)+' · '+label(r),()=>ref.delete());
 };
-$('qChips').innerHTML=[['Продукты'],['Кафе и еда вне дома'],['Транспорт'],['Личные покупки'],['Развлечения и игры'],['Подработка','income']]
-  .map(([c,k])=>`<button class="chip tap" data-qc="${esc(c)}" ${k?`data-qk="${k}"`:''}><span>${ICON[c]}</span>${esc(short(c))}</button>`).join('');
+function renderChips(){const E=EXP.filter(c=>!c[4]).slice(0,6),I=INC.filter(c=>!c[4]).slice(0,1);
+  $('qChips').innerHTML=[...E.map(c=>[c[0]]),...I.map(c=>[c[0],'income'])].map(([c,k])=>`<button class="chip tap" data-qc="${esc(c)}" ${k?`data-qk="${k}"`:''}><span>${ICON[c]}</span>${esc(short(c))}</button>`).join('');}
 document.querySelectorAll('[data-s]').forEach(b=>b.type='button');
 
 // ---------- волна в шапке ----------

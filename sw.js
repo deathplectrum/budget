@@ -1,5 +1,5 @@
 // Офлайн: сначала сеть (чтобы обновления приходили сразу), без сети — из кэша.
-const CACHE = 'budget-v1';
+const CACHE = 'budget-v2';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-512.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
