@@ -50,12 +50,11 @@ input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(
   background:linear-gradient(150deg,var(--hero1) 0%,var(--hero2) 100%);box-shadow:var(--shadow)}
 .hero .gear{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:14px;background:var(--hero-tile);display:grid;place-items:center;z-index:2}
 .hero .gear svg{width:22px;height:22px;stroke:var(--hero-fg);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.hero canvas{position:absolute;inset:auto 0 0 0;width:100%;height:70px;opacity:1;pointer-events:none}
 .hero>*:not(canvas){position:relative}
 .hero .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--hero-muted);font-weight:700}
 .hero .big{font-family:var(--display);font-size:clamp(40px,13vw,56px);font-weight:700;line-height:1.05;margin:6px 0 2px}
 .hero .sub{color:var(--hero-muted);font-size:14px}
-.hero .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.hero .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:16px}
 .hero .stat{background:var(--hero-tile);border-radius:14px;padding:10px 10px 9px;min-width:0}
 .hero .stat b{display:block;font-size:16px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hero .stat span{font-size:11.5px;color:var(--hero-muted);white-space:nowrap}
@@ -132,6 +131,17 @@ input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(
 .prow .l2{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:6px}
 .prow .bar{height:6px;margin-top:6px}
 .tag{font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--warn);border:1.5px solid currentColor;border-radius:6px;padding:1px 5px;margin-left:6px;vertical-align:2px}
+.donut{display:grid;grid-template-columns:140px 1fr;gap:18px;align-items:center}
+.donut svg{width:140px;height:140px;display:block}
+.donut .arc{animation:arc .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d)}
+@keyframes arc{from{opacity:0}to{opacity:1}}
+.dt1{font-family:var(--display);font-weight:700;font-size:15px;fill:var(--fg)}
+.dt2{font-size:10.5px;fill:var(--muted)}
+.legend{display:flex;flex-direction:column;gap:9px;min-width:0}
+.lg{display:flex;align-items:center;gap:8px;font-size:14px}
+.lg i{flex:none;width:10px;height:10px;border-radius:3px}
+.lg .ln{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lg b{font-weight:800}
 .total{display:flex;justify-content:space-between;padding:12px 14px;font-weight:800;background:var(--card2)}
 
 /* tab bar */
@@ -204,7 +214,6 @@ input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(
   <!-- HOME -->
   <section class="view on" id="v-home">
     <div class="hero">
-      <canvas id="waves" aria-hidden="true"></canvas>
       <button class="gear" data-go="more" aria-label="Настройки"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
       <div class="eyebrow" id="hPeriod">Текущий период</div>
       <div class="big num" id="hPerDay">—</div>
@@ -212,7 +221,6 @@ input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(
       <div class="stats">
         <div class="stat"><b class="num" id="hCash">—</b><span>на руках</span></div>
         <div class="stat"><b class="num" id="hDays">—</b><span>до зарплаты</span></div>
-        <div class="stat"><b class="num" id="hRes">—</b><span>обязательные</span></div>
       </div>
       <div class="pbar"><i id="hBar"></i></div>
       <div class="pfoot"><span id="hFrom"></span><span id="hTo"></span></div>
@@ -225,17 +233,16 @@ input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(
     </div>
 
     <form class="quick" id="qForm" autocomplete="off">
-      <input id="qText" placeholder="шаурма 250" enterkeyhint="done" aria-label="Быстрая запись">
+      <input id="qText" placeholder="Например: шаурма 250" enterkeyhint="done" aria-label="Быстрая запись">
       <button class="btn" type="submit">Записать</button>
     </form>
-    <div class="hint">Пиши как в боте: «магнит 540», «зп 20000», «отложил 2000 подушка», «такси 300 вчера»</div>
     <div class="chips" id="qChips"></div>
 
+
+    <h2>Куда ушли деньги <span class="small muted" style="font-family:var(--body)" id="spLbl"></span></h2>
+    <div class="card" id="spend"></div>
     <h2>Последние <button class="link" data-go="history">Все</button></h2>
     <div class="list" id="recent"></div>
-
-    <h2>Цели <button class="link" data-go="goals">Открыть</button></h2>
-    <div id="homeGoals"></div>
   </section>
 
   <!-- HISTORY -->
@@ -384,12 +391,11 @@ function calc(){
   const p=periodOf(today());
   const plan=(st.plan||{})[p.key]||{};
   const fact={};for(const t of S.tx)if(inPeriod(t,p)&&t.kind==='expense')fact[t.cat]=(fact[t.cat]||0)+t.amount;
-  let reserved=0;for(const c of st.mandatory||[])reserved+=Math.max(0,num(plan[c])-(fact[c]||0));
   const daysLeft=Math.round((p.end-today())/864e5)+1;
   const total=Math.round((p.end-p.start)/864e5)+1;
-  const perDay=Math.max(0,(cash-reserved)/Math.max(1,daysLeft));
+  const perDay=Math.max(0,cash/Math.max(1,daysLeft));
   const spentToday=S.tx.filter(t=>t.date===ymd(today())&&t.kind==='expense').reduce((a,t)=>a+t.amount,0);
-  return{cash,reserved,daysLeft,total,perDay,p,spentToday};
+  return{cash,daysLeft,total,perDay,p,spentToday,fact};
 }
 const goalSaved=g=>num(g.initial)+S.tx.filter(t=>t.goalId===g.id).reduce((a,t)=>a+(t.kind==='save'?t.amount:t.kind==='withdraw'?-t.amount:0),0);
 const debtLeft=d=>num(d.total)-num(d.paidBefore)-S.tx.filter(t=>t.debtId===d.id).reduce((a,t)=>a+(t.kind==='expense'?t.amount:-t.amount),0);
@@ -451,15 +457,28 @@ function renderHome(){
     $('hSub').textContent=c.spentToday?('можно тратить сегодня · уже потратил '+fmt(c.spentToday)):'можно тратить сегодня';
     $('hCash').textContent=fmtS(c.cash);$('hCash').style.color=c.cash<0?'var(--bad)':'';
     $('hDays').textContent=c.daysLeft+' '+plural(c.daysLeft,'день','дня','дней');
-    $('hRes').textContent=fmt(c.reserved);
   }
   $('hBar').style.width=Math.round((c.total-c.daysLeft+1)/c.total*100)+'%';
   $('hFrom').textContent=dShort(c.p.start);$('hTo').textContent='зарплата '+dShort(new Date(c.p.end.getTime()+864e5));
   $('onboard').hidden=!(loaded()&&S.db&&(st.startBalance===null||st.startBalance===undefined));
   const rec=sorted().slice(0,5);
   $('recent').innerHTML=!loaded()?'<div class="empty">Загружаю записи…</div>':rec.length?rec.map(txRow).join(''):'<div class="empty"><b>Пока пусто</b>Запиши первую трату в строке выше или кнопкой «+».</div>';
-  const gs=S.goals.slice(0,2);
-  $('homeGoals').innerHTML=gs.length?'<div class="card">'+gs.map(goalHtml.bind(null,false)).join('')+'</div>':'<div class="list"><div class="empty">Целей пока нет.</div></div>';
+  renderSpend(c);
+}
+const SHADES=['#373737','#5E5E5E','#818181','#A1A1A1','#C0C0C0','#DCDCDC'];
+function renderSpend(c){
+  const items=Object.entries(c.fact).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+  const total=items.reduce((a,[,v])=>a+v,0);
+  $('spLbl').textContent=dShort(c.p.start)+' — '+dShort(c.p.end);
+  if(!loaded()){$('spend').innerHTML='<div class="empty">Загружаю…</div>';return}
+  if(!total){$('spend').innerHTML='<div class="empty"><b>В этом периоде трат пока нет</b>Здесь появится диаграмма по категориям.</div>';return}
+  const top=items.slice(0,5);const rest=items.slice(5).reduce((a,[,v])=>a+v,0);if(rest)top.push(['Остальное',rest]);
+  const R=52,C=2*Math.PI*R;let off=0;
+  const arcs=top.map(([n,v],i)=>{const len=v/total*C;const gap=top.length>1?2:0;
+    const el=`<circle r="${R}" cx="70" cy="70" fill="none" stroke="${SHADES[i]}" stroke-width="18" stroke-dasharray="${Math.max(0,len-gap)} ${C}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)" class="arc" style="--d:${i*70}ms"/>`;off+=len;return el}).join('');
+  $('spend').innerHTML=`<div class="donut"><svg viewBox="0 0 140 140" role="img" aria-label="Траты по категориям">${arcs}
+    <text x="70" y="66" text-anchor="middle" class="dt1">${esc(fmt(total))}</text><text x="70" y="84" text-anchor="middle" class="dt2">потрачено</text></svg>
+    <div class="legend">${top.map(([n,v],i)=>`<div class="lg"><i style="background:${SHADES[i]}"></i><span class="ln">${esc(n==='Остальное'?n:short(n))}</span><b class="num">${Math.round(v/total*100)}%</b></div>`).join('')}</div></div>`;
 }
 function goalHtml(full,g){
   const saved=goalSaved(g),tg=num(g.target),pct=tg?Math.min(100,Math.round(saved/tg*100)):0;
@@ -505,8 +524,7 @@ function renderPlan(){
   const plan=(st.plan||{})[p.key]||{};const fact={};
   for(const t of S.tx)if(inPeriod(t,p)){const k=t.kind==='save'?'Накопления':t.kind==='withdraw'?null:t.cat;if(k)fact[k]=(fact[k]||0)+t.amount}
   const row=(name,isInc)=>{const pl=num(plan[name]),f=fact[name]||0,pct=pl?Math.min(100,Math.round(f/pl*100)):0,over=!isInc&&pl&&f>pl;
-    const mand=!isInc&&(st.mandatory||[]).includes(name);
-    return `<div class="prow"><div class="l1"><span>${ICON[name]||'🎯'}</span><span class="nm">${esc(name==='Накопления'?'Отложить в цели':short(name))}${mand?'<span class="tag">обяз.</span>':''}</span>
+    return `<div class="prow"><div class="l1"><span>${ICON[name]||'🎯'}</span><span class="nm">${esc(name==='Накопления'?'Отложить в цели':short(name))}</span>
     <input class="num" inputmode="numeric" data-plan="${esc(name)}" value="${pl||''}" placeholder="0" aria-label="План: ${esc(name)}"></div>
     ${pl||f?`<div class="bar ${over?'over':''}"><i data-w="${pct}"></i></div><div class="l2 num"><span>факт ${fmt(f)}</span><span style="${over?'color:var(--bad);font-weight:700':''}">${pl?(isInc?(f>=pl?'всё пришло':'ждём '+fmt(pl-f)):(over?'перерасход '+fmt(f-pl):'осталось '+fmt(pl-f))):''}</span></div>`:''}</div>`};
   const vis=c=>catOn(c)||num(plan[c[0]])||fact[c[0]];const PI=INC_ALL.filter(vis),PE=EXP_ALL.filter(vis);
@@ -516,14 +534,12 @@ function renderPlan(){
   <h2>Доходы <button class="link" data-catgo="inc">Выбрать категории</button></h2><div class="list">${PI.map(c=>row(c[0],true)).join('')}</div>
   <h2>Расходы <button class="link" data-catgo="exp">Выбрать категории</button></h2><div class="list">${PE.map(c=>row(c[0],false)).join('')}</div>
   <h2>Накопления</h2><div class="list">${row('Накопления',false)}</div>
-  ${hasPrev?'<button class="btn ghost wide" id="pCopy" style="margin-top:16px">Скопировать план прошлого периода</button>':''}
-  <p class="hint">Метка «обяз.» значит, что эти деньги заранее откладываются из суммы «в день». Менять в настройках.</p>`;
+  ${hasPrev?'<button class="btn ghost wide" id="pCopy" style="margin-top:16px">Скопировать план прошлого периода</button>':''}`;
 }
 function renderMore(){
   const st=set_();
   $('mBody').innerHTML=`<div class="card">
-   <div class="setrow"><div><b>Деньги на старте</b><div class="small muted">все карты и наличные на дату начала</div></div><input class="num" id="stBal" inputmode="decimal" value="${st.startBalance??''}" placeholder="0"></div>
-   <div class="setrow"><div><b>Дата начала учёта</b></div><input id="stDate" type="date" value="${esc(st.startDate)}" style="width:160px"></div>
+   <div class="setrow"><div><b>Деньги на старте</b><div class="small muted">все карты и наличные</div></div><input class="num" id="stBal" inputmode="decimal" value="${st.startBalance??''}" placeholder="0"></div>
    <div class="setrow"><div><b>Дни зарплаты</b><div class="small muted">два числа месяца</div></div><div style="display:flex;gap:6px"><input class="num" id="pd1" inputmode="numeric" value="${st.payDays[0]}" style="width:62px"><input class="num" id="pd2" inputmode="numeric" value="${st.payDays[1]}" style="width:62px"></div></div>
    <button class="btn wide" id="stSave" style="margin-top:12px">Сохранить</button></div>
   <h2>Сверка с банком</h2><div class="card"><p class="small muted" style="margin:0 0 10px">Сейчас по приложению на руках <b class="num" style="color:var(--fg)">${fmtS(calc().cash)}</b>. Если в банке другая сумма, впиши её. Разницу запишу одной строкой «Корректировка».</p>
@@ -532,12 +548,10 @@ function renderMore(){
   <div class="seg" style="margin-bottom:10px"><button data-cseg="exp" class="${S.catSeg!=='inc'?'on':''}">Расходы</button><button data-cseg="inc" class="${S.catSeg==='inc'?'on':''}">Доходы</button></div>
   <div class="card">${(S.catSeg==='inc'?INC_ALL:EXP_ALL).map(c=>`<div class="setrow"><span>${c[1]} ${esc(c[0])}${c[4]?'<div class="small muted">нужна всегда</div>':''}</span>${c[4]?'':`<button class="switch ${catOn(c)?'on':''}" data-catsw="${esc(c[0])}" role="switch" aria-checked="${catOn(c)}" aria-label="${esc(c[0])}"></button>`}</div>`).join('')}</div>
   <p class="hint">Включённые категории появляются в «+», в плане и в быстрой строке.</p>
-  <h2>Обязательные траты</h2><div class="card">${EXP.map(c=>`<div class="setrow"><span>${c[1]} ${esc(short(c[0]))}</span><button class="switch ${st.mandatory.includes(c[0])?'on':''}" data-mand="${esc(c[0])}" role="switch" aria-checked="${st.mandatory.includes(c[0])}" aria-label="${esc(c[0])}"></button></div>`).join('')}</div>
   <h2>Копия данных</h2><div class="card"><p class="small muted" style="margin:0 0 10px">Данные хранятся только в этом телефоне. Раз в неделю сохраняй копию в «Файлы», чтобы ничего не потерять.</p>
-   <div class="acts2"><button class="btn wide" id="bkSave">Сохранить копию</button><button class="btn ghost wide" id="bkLoad">Загрузить копию</button></div>
+   <div style="display:flex;flex-direction:column;gap:8px"><button class="btn wide" id="bkSave">Сохранить копию</button><button class="btn ghost wide" id="bkLoad">Загрузить копию</button></div>
    <input type="file" id="bkFile" accept=".json,application/json" hidden>
-   <p class="small muted" style="margin:10px 0 0">Последняя копия: ${esc(lastBackup())}</p>
-   <button class="btn ghost wide" id="csv" style="margin-top:10px">Скопировать все записи как таблицу</button></div>
+   <p class="small muted" style="margin:10px 0 0">Последняя копия: ${esc(lastBackup())}</p></div>
   <p class="hint" style="text-align:center;margin-top:18px">Версия ${APP_VERSION}</p>`;
 }
 function renderAll(){
@@ -583,7 +597,7 @@ function txSheet(init){
   if(f.kind==='withdraw'){f.mode='take';f.kind='save'}else if(f.kind==='save')f.mode='put';
   if(f.debtId){f.mode=f.kindOrig==='income'||init.kind==='income'?'borrow':'pay';f.kind='debt'}
   const draw=()=>{
-    const kinds=[['expense','Расход'],['income','Доход'],['save','Цель'],['debt','Долг']];
+    const kinds=(f.kind==='expense'||f.kind==='income')?[['expense','Расход'],['income','Доход']]:[];
     let pick='';
     if(f.kind==='expense')pick=`<div class="cats">${EXP.filter(c=>c[0]!=='Долги (выплата)').map(c=>`<button class="cat ${f.cat===c[0]?'on':''}" data-cat="${esc(c[0])}"><span>${c[1]}</span><span>${esc(short(c[0]))}</span></button>`).join('')}</div>`;
     if(f.kind==='income')pick=`<div class="cats">${INC.map(c=>`<button class="cat ${f.cat===c[0]?'on':''}" data-cat="${esc(c[0])}"><span>${c[1]}</span><span>${esc(short(c[0]))}</span></button>`).join('')}</div>`;
@@ -592,8 +606,8 @@ function txSheet(init){
     if(f.kind==='debt')pick=`<div class="seg"><button data-mode="pay" class="${f.mode!=='borrow'?'on':''}">Отдал</button><button data-mode="borrow" class="${f.mode==='borrow'?'on':''}">Занял ещё</button></div>`+
       (S.debts.length?`<div class="chips" style="flex-wrap:wrap;margin:0;padding:0;overflow:visible">${S.debts.map(d=>`<button class="chip ${f.debtId===d.id?'on':''}" data-debt="${esc(d.id)}">🧾 ${esc(d.name)}</button>`).join('')}</div>`:'<div class="muted small">Долгов нет. Добавь на вкладке «Цели» → «Долги».</div>');
     const t=today(),y=new Date(t);y.setDate(t.getDate()-1);
-    $('sheetIn').innerHTML=`<div class="hd"><h3>${ed?'Изменить запись':'Новая запись'}</h3></div>
-      <div class="seg" id="kseg">${kinds.map(([k,n])=>`<button data-kind="${k}" class="${f.kind===k?'on':''}">${n}</button>`).join('')}</div>
+    $('sheetIn').innerHTML=`<div class="hd"><h3>${f.kind==='save'?(f.mode==='take'?'Снять из цели':'Отложить в цель'):f.kind==='debt'?'Платёж по долгу':(ed?'Изменить запись':'Новая запись')}</h3></div>
+      ${kinds.length?'':''}<div class="seg" id="kseg" ${kinds.length?'':'hidden'}>${kinds.map(([k,n])=>`<button data-kind="${k}" class="${f.kind===k?'on':''}">${n}</button>`).join('')}</div>
       <input class="amount num" id="fAmt" inputmode="decimal" placeholder="0 ₽" value="${f.amount||''}" aria-label="Сумма">
       ${pick}
       <div class="field"><input id="fNote" placeholder="Комментарий, например «шаурма»" value="${esc(f.note)}" aria-label="Комментарий"></div>
@@ -689,7 +703,7 @@ document.addEventListener('click',async e=>{
     b.classList.toggle('on');try{await saveSettings({mandatory:[...m]})}catch(err){toast(errMsg(err))}return}
   if(b.id==='stSave'){const a=num($('pd1').value),c=num($('pd2').value);
     if(!(a>=1&&a<=28&&c>=1&&c<=28&&a!==c))return toast('Дни зарплаты: два разных числа от 1 до 28');
-    try{await saveSettings({startBalance:$('stBal').value.trim()===''?null:num($('stBal').value),startDate:$('stDate').value||ymd(today()),payDays:[Math.min(a,c),Math.max(a,c)]});toast('Настройки сохранены')}catch(err){toast(errMsg(err))}return}
+    try{await saveSettings({startBalance:$('stBal').value.trim()===''?null:num($('stBal').value),payDays:[Math.min(a,c),Math.max(a,c)]});toast('Настройки сохранены')}catch(err){toast(errMsg(err))}return}
   if(b.id==='recBtn'){const v=$('recAmt').value.trim();if(!v)return toast('Впиши сумму из банка');
     const diff=num(v)-calc().cash;if(Math.abs(diff)<1)return toast('Всё сходится');
     const ref=await addTx({date:ymd(today()),kind:diff>0?'income':'expense',cat:'Корректировка',amount:Math.abs(diff),note:'Сверка с банком'});
@@ -717,16 +731,8 @@ function renderChips(){const E=EXP.filter(c=>!c[4]).slice(0,6),I=INC.filter(c=>!
   $('qChips').innerHTML=[...E.map(c=>[c[0]]),...I.map(c=>[c[0],'income'])].map(([c,k])=>`<button class="chip tap" data-qc="${esc(c)}" ${k?`data-qk="${k}"`:''}><span>${ICON[c]}</span>${esc(short(c))}</button>`).join('');}
 document.querySelectorAll('[data-s]').forEach(b=>b.type='button');
 
-// ---------- волна в шапке ----------
-(function(){const c=$('waves'),x=c.getContext('2d');let w,h,t=0;const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function size(){const r=c.getBoundingClientRect(),d=devicePixelRatio||1;w=r.width;h=r.height;c.width=w*d;c.height=h*d;x.setTransform(d,0,0,d,0,0)}
-  function draw(){x.clearRect(0,0,w,h);[[.18,'rgba(0,0,0,.035)',1],[.11,'rgba(0,0,0,.05)',1.6]].forEach(([amp,col,sp],k)=>{
-    x.beginPath();x.moveTo(0,h);for(let i=0;i<=w;i+=4){x.lineTo(i,h*.45+Math.sin(i/(48+k*20)+t*sp)*h*amp+k*10)}x.lineTo(w,h);x.closePath();x.fillStyle=col;x.fill()});
-    t+=.025;if(!still)requestAnimationFrame(draw)}
-  size();addEventListener('resize',size);draw();})();
-
 // ---------- хранилище в телефоне ----------
-const APP_VERSION='29.10 17:45';
+const APP_VERSION='29.10 18:01';
 const LS_KEY='budget-v1';
 const LocalDB=(()=>{
   let store={};try{store=JSON.parse(localStorage.getItem(LS_KEY)||'{}')||{}}catch(e){store={}}
