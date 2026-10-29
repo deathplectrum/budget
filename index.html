@@ -13,19 +13,19 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}input,textarea{-webkit-user-select:text;user-select:text}body{-webkit-user-select:none;user-select:none;overscroll-behavior-y:none}</style>
 <title>Бюджет</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap">
 <style>
 /* Layout: one-column phone app, white hero on top, sheet modals from the bottom, tab bar fixed to the bottom edge. */
 /* Single light theme on purpose: the user asked for a grey-and-white look, the same in any system mode. */
 :root{
   --deep:#373737;--ocean:#555555;--wave:#818181;--silver:#A1A1A1;--foam:#C0C0C0;
-  --bg:#F3F3F3;--card:#FFFFFF;--card2:#F7F7F7;--fg:#262626;--muted:#6E6E6E;--line:#E6E6E6;
+  --bg:#F4F4F5;--card:#FFFFFF;--card2:#F7F7F7;--fg:#262626;--muted:#6E6E6E;--line:#E6E6E6;
   --accent:#373737;--accent-fg:#FFFFFF;--chip:#EBEBEB;--chip-on:#373737;--chip-on-fg:#FFFFFF;
   --hero1:#FFFFFF;--hero2:#F7F7F7;--hero-fg:#262626;--hero-muted:#818181;--hero-tile:#F3F3F3;
   --good:#3E8E5E;--bad:#C0473F;--warn:#9A7322;--scrim:rgba(0,0,0,.28);
   --shadow:0 8px 28px -14px rgba(0,0,0,.22);
-  --display:"Unbounded","Manrope",-apple-system,system-ui,sans-serif;
-  --body:"Manrope",-apple-system,system-ui,sans-serif;
+  --display:"Onest",-apple-system,system-ui,sans-serif;
+  --body:"Onest",-apple-system,system-ui,sans-serif;
   color-scheme:light;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -35,7 +35,7 @@ body{color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.4;
   padding-block:12px calc(120px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto}
 .num{font-variant-numeric:tabular-nums}
 h1,h2{font-family:var(--display);font-weight:700;letter-spacing:-.01em;margin:0;text-wrap:balance}
-h2{font-size:15px;font-weight:500;color:var(--muted);letter-spacing:.02em;margin:22px 4px 10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+h2{font-size:20px;font-weight:700;color:var(--fg);letter-spacing:-.01em;margin:26px 4px 12px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 h2 button{font-family:var(--body)}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
 button,.tap{transition:transform .18s cubic-bezier(.3,.7,.4,1.4),background-color .2s,color .2s,opacity .2s}
@@ -45,22 +45,36 @@ input,select{font:inherit;font-size:17px;color:var(--fg);background:var(--card2)
 input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(--wave) 25%,transparent)}
 .link{color:var(--accent);font-weight:700;font-size:14px;padding:4px 2px}
 
-/* hero */
-.hero{position:relative;overflow:hidden;border-radius:28px;border:1px solid var(--line);padding:22px 20px 18px;color:var(--hero-fg);
-  background:linear-gradient(150deg,var(--hero1) 0%,var(--hero2) 100%);box-shadow:var(--shadow)}
-.hero .gear{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:14px;background:var(--hero-tile);display:grid;place-items:center;z-index:2}
-.hero .gear svg{width:22px;height:22px;stroke:var(--hero-fg);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.hero>*:not(canvas){position:relative}
-.hero .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--hero-muted);font-weight:700}
-.hero .big{font-family:var(--display);font-size:clamp(40px,13vw,56px);font-weight:700;line-height:1.05;margin:6px 0 2px}
-.hero .sub{color:var(--hero-muted);font-size:14px}
-.hero .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:16px}
-.hero .stat{background:var(--hero-tile);border-radius:14px;padding:10px 10px 9px;min-width:0}
-.hero .stat b{display:block;font-size:16px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hero .stat span{font-size:11.5px;color:var(--hero-muted);white-space:nowrap}
-.pbar{height:6px;border-radius:6px;background:var(--line);margin-top:14px;overflow:hidden}
-.pbar i{display:block;height:100%;border-radius:6px;background:var(--ocean);width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
-.hero .pfoot{display:flex;justify-content:space-between;font-size:11.5px;color:var(--hero-muted);margin-top:6px}
+/* top + hero */
+.top{display:flex;justify-content:space-between;align-items:center;margin:6px 2px 14px}
+.top-sub{font-size:13px;color:var(--muted);font-weight:600}
+.top-title{font-size:30px;font-weight:800;letter-spacing:-.02em}
+.gear{width:44px;height:44px;border-radius:50%;background:var(--card);display:grid;place-items:center;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.gear svg{width:22px;height:22px;stroke:var(--fg);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hero{background:var(--card);border-radius:24px;padding:20px 18px 16px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.hero .eyebrow{font-size:14px;color:var(--muted);font-weight:600}
+.hero .big{font-size:clamp(36px,11vw,46px);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:4px 0 2px}
+.hero .sub{color:var(--muted);font-size:14px}
+.segbar{display:flex;gap:3px;height:10px;margin:16px 0 14px;border-radius:6px;overflow:hidden;background:var(--chip)}
+.segbar i{display:block;height:100%;border-radius:3px;transform-origin:left;animation:grow .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes grow{from{transform:scaleX(0)}to{transform:none}}
+.hero .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hero .stat{background:var(--card2);border-radius:16px;padding:12px 14px;text-align:left;display:flex;flex-direction:column;gap:2px;min-width:0}
+.hero .stat span{font-size:13px;color:var(--muted);font-weight:600}
+.hero .stat b{font-size:18px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* goal tiles */
+.tiles{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:2px 16px 4px}
+.tiles::-webkit-scrollbar{display:none}
+.tile{flex:none;width:148px;background:var(--card);border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:10px;text-align:left;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.tile svg{width:44px;height:44px}
+.tile .tn{font-weight:700;font-size:14.5px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.4em}
+.tile .ta{font-weight:800;font-size:15px}
+.tile.add{align-items:center;justify-content:center;color:var(--muted);font-weight:700;border:1.5px dashed var(--line);background:transparent;box-shadow:none}
+.tile.add b{font-size:28px;font-weight:400;line-height:1}
+/* category cells */
+.cbar{height:4px;border-radius:4px;background:var(--chip);margin-top:6px;overflow:hidden}
+.cbar i{display:block;height:100%;border-radius:4px;background:var(--deep);transform-origin:left;animation:grow .7s cubic-bezier(.2,.8,.2,1) both}
+.row .pc{font-size:12.5px;color:var(--muted);text-align:right;margin-top:2px}
 
 /* quick line */
 .quick{display:flex;gap:8px;margin-top:14px}
@@ -80,10 +94,10 @@ input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(
 .chip.sm.on{background:var(--chip-on)}
 
 /* lists */
-.list{background:var(--card);border-radius:20px;overflow:hidden}
-.row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);width:100%;text-align:left}
+.list{background:var(--card);border-radius:24px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);width:100%;text-align:left}
 .row:last-child{border-bottom:0}
-.row .ic{flex:none;width:38px;height:38px;border-radius:12px;background:var(--chip);display:grid;place-items:center;font-size:19px}
+.row .ic{flex:none;width:42px;height:42px;border-radius:50%;background:var(--chip);display:grid;place-items:center;font-size:19px}
 .row .mid{flex:1;min-width:0}
 .row .t{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .row .s{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -94,7 +108,7 @@ input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(
 .empty b{display:block;color:var(--fg);margin-bottom:4px}
 
 /* cards */
-.card{background:var(--card);border-radius:20px;padding:16px}
+.card{background:var(--card);border-radius:24px;padding:16px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .goal{display:flex;flex-direction:column;gap:10px}
 .goal+.goal{margin-top:10px}
@@ -213,41 +227,38 @@ input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(
 <div id="app">
   <!-- HOME -->
   <section class="view on" id="v-home">
+    <header class="top"><div><div class="top-sub" id="hPeriod">Текущий период</div><h1 class="top-title">Бюджет</h1></div><button class="gear" data-go="more" aria-label="Настройки"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button></header>
+
     <div class="hero">
-      <button class="gear" data-go="more" aria-label="Настройки"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
-      <div class="eyebrow" id="hPeriod">Текущий период</div>
-      <div class="big num" id="hPerDay">—</div>
-      <div class="sub" id="hSub">можно тратить сегодня</div>
+      <div class="eyebrow">Потрачено за период</div>
+      <div class="big num" id="hSpent">—</div>
+      <div class="sub" id="hSub">&nbsp;</div>
+      <div class="segbar" id="hSeg" aria-hidden="true"></div>
       <div class="stats">
-        <div class="stat"><b class="num" id="hCash">—</b><span>на руках</span></div>
-        <div class="stat"><b class="num" id="hDays">—</b><span>до зарплаты</span></div>
+        <button class="stat tap" data-go="history"><span>Доходы</span><b class="num amt in" id="hInc">—</b></button>
+        <button class="stat tap" data-go="more"><span>На руках</span><b class="num" id="hCash">—</b></button>
       </div>
-      <div class="pbar"><i id="hBar"></i></div>
-      <div class="pfoot"><span id="hFrom"></span><span id="hTo"></span></div>
     </div>
 
-    <div id="onboard" hidden class="card" style="margin-top:14px">
-      <b style="font-family:var(--display);font-size:16px">Сколько у тебя денег сейчас?</b>
-      <p class="muted small" style="margin:6px 0 10px">Сложи все карты и наличные. От этой суммы приложение будет считать остаток.</p>
+    <div id="onboard" hidden class="card" style="margin-top:12px">
+      <b style="font-size:17px">Сколько у тебя денег сейчас?</b>
+      <p class="muted small" style="margin:6px 0 10px">Сложи все карты и наличные. От этой суммы приложение будет считать «На руках».</p>
       <div class="quick" style="margin:0"><input id="obAmt" inputmode="decimal" placeholder="Например, 3500"><button class="btn" id="obSave">Готово</button></div>
     </div>
 
-    <form class="quick" id="qForm" autocomplete="off">
-      <input id="qText" placeholder="Например: шаурма 250" enterkeyhint="done" aria-label="Быстрая запись">
-      <button class="btn" type="submit">Записать</button>
-    </form>
-    <div class="chips" id="qChips"></div>
+    <h2>Копилки <button class="link" data-go="goals">Все</button></h2>
+    <div class="tiles" id="hGoals"></div>
 
+    <h2>Траты по категориям</h2>
+    <div class="list" id="spend"></div>
 
-    <h2>Куда ушли деньги <span class="small muted" style="font-family:var(--body)" id="spLbl"></span></h2>
-    <div class="card" id="spend"></div>
-    <h2>Последние <button class="link" data-go="history">Все</button></h2>
+    <h2>Последние операции <button class="link" data-go="history">Все</button></h2>
     <div class="list" id="recent"></div>
   </section>
 
   <!-- HISTORY -->
   <section class="view" id="v-history">
-    <h1 style="font-size:24px;margin:6px 4px 14px">История</h1>
+    <h1 style="font-size:30px;font-weight:800;letter-spacing:-.02em;margin:6px 2px 16px">История</h1>
     <div class="pnav"><button id="hPrev" aria-label="Предыдущий период">‹</button><div class="lbl" id="hLbl"></div><button id="hNext" aria-label="Следующий период">›</button></div>
     <div class="sumrow">
       <div class="card"><b class="num" id="sOut">—</b><span>потрачено</span></div>
@@ -260,21 +271,21 @@ input:focus{border-color:var(--wave);box-shadow:0 0 0 4px color-mix(in srgb,var(
 
   <!-- GOALS -->
   <section class="view" id="v-goals">
-    <h1 style="font-size:24px;margin:6px 4px 14px">Цели и долги</h1>
+    <h1 style="font-size:30px;font-weight:800;letter-spacing:-.02em;margin:6px 2px 16px">Цели и долги</h1>
     <div class="seg" id="gSeg"><button data-s="goals" class="on">Цели</button><button data-s="debts">Долги</button></div>
     <div id="gBody" style="margin-top:14px"></div>
   </section>
 
   <!-- PLAN -->
   <section class="view" id="v-plan">
-    <h1 style="font-size:24px;margin:6px 4px 14px">План</h1>
+    <h1 style="font-size:30px;font-weight:800;letter-spacing:-.02em;margin:6px 2px 16px">План</h1>
     <div class="pnav"><button id="pPrev" aria-label="Предыдущий период">‹</button><div class="lbl" id="pLbl"></div><button id="pNext" aria-label="Следующий период">›</button></div>
     <div id="pBody"></div>
   </section>
 
   <!-- MORE -->
   <section class="view settings" id="v-more">
-    <h1 style="font-size:24px;margin:6px 4px 14px;display:flex;align-items:center;gap:10px"><button class="x" data-go="home" aria-label="Назад" style="width:38px;height:38px;border-radius:12px;background:var(--chip);font-size:20px">‹</button>Настройки</h1>
+    <h1 style="font-size:30px;font-weight:800;letter-spacing:-.02em;margin:6px 2px 16px;display:flex;align-items:center;gap:10px"><button class="x" data-go="home" aria-label="Назад" style="width:38px;height:38px;border-radius:12px;background:var(--chip);font-size:20px">‹</button>Настройки</h1>
     <div id="mBody"></div>
   </section>
 </div>
@@ -450,35 +461,32 @@ function txRow(t){
 const sorted=()=>S.tx.slice().sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(b.ts||0)-(a.ts||0));
 function loaded(){return S.ready.tx&&S.ready.settings}
 
-function renderHome(){
-  const c=calc(),st=set_();renderChips();
-  $('hPeriod').textContent='Период '+dShort(c.p.start)+' — '+dShort(c.p.end);
-  if(loaded()){countTo($('hPerDay'),c.perDay);
-    $('hSub').textContent=c.spentToday?('можно тратить сегодня · уже потратил '+fmt(c.spentToday)):'можно тратить сегодня';
-    $('hCash').textContent=fmtS(c.cash);$('hCash').style.color=c.cash<0?'var(--bad)':'';
-    $('hDays').textContent=c.daysLeft+' '+plural(c.daysLeft,'день','дня','дней');
-  }
-  $('hBar').style.width=Math.round((c.total-c.daysLeft+1)/c.total*100)+'%';
-  $('hFrom').textContent=dShort(c.p.start);$('hTo').textContent='зарплата '+dShort(new Date(c.p.end.getTime()+864e5));
-  $('onboard').hidden=!(loaded()&&S.db&&(st.startBalance===null||st.startBalance===undefined));
-  const rec=sorted().slice(0,5);
-  $('recent').innerHTML=!loaded()?'<div class="empty">Загружаю записи…</div>':rec.length?rec.map(txRow).join(''):'<div class="empty"><b>Пока пусто</b>Запиши первую трату в строке выше или кнопкой «+».</div>';
-  renderSpend(c);
-}
+function ring(pct,has=true){const r=18,C=2*Math.PI*r;return `<svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="${r}" fill="none" stroke="var(--chip)" stroke-width="5"/><circle cx="22" cy="22" r="${r}" fill="none" stroke="var(--deep)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C*pct/100} ${C}" transform="rotate(-90 22 22)"/><text x="22" y="26" text-anchor="middle" font-size="10" font-weight="800" fill="var(--fg)">${has?pct+'%':'—'}</text></svg>`}
 const SHADES=['#373737','#5E5E5E','#818181','#A1A1A1','#C0C0C0','#DCDCDC'];
-function renderSpend(c){
+function renderHome(){
+  const c=calc(),st=set_();
+  $('hPeriod').textContent=dShort(c.p.start)+' — '+dShort(c.p.end);
   const items=Object.entries(c.fact).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
-  const total=items.reduce((a,[,v])=>a+v,0);
-  $('spLbl').textContent=dShort(c.p.start)+' — '+dShort(c.p.end);
-  if(!loaded()){$('spend').innerHTML='<div class="empty">Загружаю…</div>';return}
-  if(!total){$('spend').innerHTML='<div class="empty"><b>В этом периоде трат пока нет</b>Здесь появится диаграмма по категориям.</div>';return}
+  const spent=items.reduce((a,[,v])=>a+v,0);
+  const inc=S.tx.filter(t=>inPeriod(t,c.p)&&t.kind==='income').reduce((a,t)=>a+t.amount,0);
+  const daysGone=Math.max(1,c.total-c.daysLeft+1);
+  if(loaded()){countTo($('hSpent'),spent);
+    $('hSub').textContent=spent?('в среднем '+fmt(spent/daysGone)+' в день'+(c.spentToday?' · сегодня '+fmt(c.spentToday):'')):'пока ничего не потрачено';
+    $('hInc').textContent=(inc?'+':'')+fmt(inc);
+    $('hCash').textContent=fmtS(c.cash);$('hCash').style.color=c.cash<0?'var(--bad)':'';}
   const top=items.slice(0,5);const rest=items.slice(5).reduce((a,[,v])=>a+v,0);if(rest)top.push(['Остальное',rest]);
-  const R=52,C=2*Math.PI*R;let off=0;
-  const arcs=top.map(([n,v],i)=>{const len=v/total*C;const gap=top.length>1?2:0;
-    const el=`<circle r="${R}" cx="70" cy="70" fill="none" stroke="${SHADES[i]}" stroke-width="18" stroke-dasharray="${Math.max(0,len-gap)} ${C}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)" class="arc" style="--d:${i*70}ms"/>`;off+=len;return el}).join('');
-  $('spend').innerHTML=`<div class="donut"><svg viewBox="0 0 140 140" role="img" aria-label="Траты по категориям">${arcs}
-    <text x="70" y="66" text-anchor="middle" class="dt1">${esc(fmt(total))}</text><text x="70" y="84" text-anchor="middle" class="dt2">потрачено</text></svg>
-    <div class="legend">${top.map(([n,v],i)=>`<div class="lg"><i style="background:${SHADES[i]}"></i><span class="ln">${esc(n==='Остальное'?n:short(n))}</span><b class="num">${Math.round(v/total*100)}%</b></div>`).join('')}</div></div>`;
+  $('hSeg').innerHTML=spent?top.map(([n,v],i)=>`<i style="flex:${v};background:${SHADES[i]};animation-delay:${i*60}ms"></i>`).join(''):'';
+  $('onboard').hidden=!(loaded()&&S.db&&(st.startBalance===null||st.startBalance===undefined));
+  // копилки
+  $('hGoals').innerHTML=S.goals.map(g=>{const sv=goalSaved(g),tg=num(g.target),pct=tg?Math.min(100,Math.round(sv/tg*100)):0;
+    return `<button class="tile tap" data-gsave="${esc(g.id)}">${ring(pct,!!tg)}<div class="tn">${esc(g.name)}</div><div class="ta num">${fmt(sv)}</div></button>`}).join('')+
+    '<button class="tile add tap" id="gAdd"><b>+</b>Новая цель</button>';
+  // категории
+  $('spend').innerHTML=!loaded()?'<div class="empty">Загружаю…</div>':!spent?'<div class="empty"><b>Трат пока нет</b>Нажми «+» внизу, чтобы записать первую.</div>':
+    items.slice(0,6).map(([n,v],i)=>{const cnt=S.tx.filter(t=>inPeriod(t,c.p)&&t.kind==='expense'&&t.cat===n).length;const pct=Math.round(v/spent*100);
+      return `<button class="row tap" data-go="history"><span class="ic">${ICON[n]||'•'}</span><span class="mid"><div class="t">${esc(short(n))}</div><div class="s">${cnt} ${plural(cnt,'операция','операции','операций')}</div><div class="cbar"><i style="width:${Math.max(3,Math.round(v/items[0][1]*100))}%;animation-delay:${i*60}ms"></i></div></span><span><div class="amt num">${fmt(v)}</div><div class="pc num">${pct}%</div></span></button>`}).join('');
+  const rec=sorted().slice(0,5);
+  $('recent').innerHTML=!loaded()?'<div class="empty">Загружаю записи…</div>':rec.length?rec.map(txRow).join(''):'<div class="empty"><b>Пока пусто</b>Нажми «+» внизу, чтобы записать первую трату.</div>';
 }
 function goalHtml(full,g){
   const saved=goalSaved(g),tg=num(g.target),pct=tg?Math.min(100,Math.round(saved/tg*100)):0;
@@ -722,17 +730,15 @@ async function saveSettings(patch){
   const ref=S.db.doc('app/settings');
   if(S.settings)await ref.update(patch);else await ref.set(Object.assign({},defaults,patch));
 }
-$('qForm').onsubmit=async e=>{e.preventDefault();const v=$('qText').value.trim();if(!v)return;
+if($('qForm'))$('qForm').onsubmit=async e=>{e.preventDefault();const v=$('qText').value.trim();if(!v)return;
   const r=parseLine(v);if(r.err)return toast(r.err);
   $('qText').value='';$('qText').blur();
   const ref=await addTx(r);if(ref)toast('✓ '+title(r)+' '+fmt(r.amount)+' · '+label(r),()=>ref.delete());
 };
-function renderChips(){const E=EXP.filter(c=>!c[4]).slice(0,6),I=INC.filter(c=>!c[4]).slice(0,1);
-  $('qChips').innerHTML=[...E.map(c=>[c[0]]),...I.map(c=>[c[0],'income'])].map(([c,k])=>`<button class="chip tap" data-qc="${esc(c)}" ${k?`data-qk="${k}"`:''}><span>${ICON[c]}</span>${esc(short(c))}</button>`).join('');}
 document.querySelectorAll('[data-s]').forEach(b=>b.type='button');
 
 // ---------- хранилище в телефоне ----------
-const APP_VERSION='29.10 18:01';
+const APP_VERSION='29.10 18:44';
 const LS_KEY='budget-v1';
 const LocalDB=(()=>{
   let store={};try{store=JSON.parse(localStorage.getItem(LS_KEY)||'{}')||{}}catch(e){store={}}
